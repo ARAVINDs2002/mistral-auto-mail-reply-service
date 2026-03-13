@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Email Reply Generator</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background: #f4f4f4;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .output {
+            margin-top: 20px;
+            background: #eef;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .status-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .status-bar.ready {
+            background: #e6f9ee;
+            color: #1a7a3f;
+            border: 1px solid #a3d9b1;
+        }
+
+        .status-bar.generating {
+            background: #fff8e1;
+            color: #a0660a;
+            border: 1px solid #f5cc7a;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+        .status-bar.generating .status-dot {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.3;
+                transform: scale(0.7);
+            }
+        }
+
+        .spinner {
+            display: none;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #f5cc7a;
+            border-top-color: #a0660a;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .status-bar.generating .spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Email Reply Generator</h2>
+
+        <form method="POST" id="replyForm">
+
+            <label>Email Body:</label>
+            <textarea name="email_body" rows="6" required></textarea>
+
+            <label>Reply Instruction:</label>
+            <textarea name="instruction" rows="3"
+                placeholder="Example: Reply politely and confirm meeting tomorrow"></textarea>
+
+            <button type="submit" id="submitBtn">Generate Reply</button>
+
+            <div class="status-bar ready" id="statusBar">
+                <span class="status-dot"></span>
+                <span id="statusText">Ready</span>
+                <div class="spinner"></div>
+            </div>
+
+        </form>
+
+        {% if reply %}
+
+        <div class="output">
+            <h3>Generated Reply:</h3>
+            <p>{{ reply }}</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <script>
+        document.getElementById('replyForm').addEventListener('submit', function () {
+            const bar = document.getElementById('statusBar');
+            const text = document.getElementById('statusText');
+            const btn = document.getElementById('submitBtn');
+
+            bar.classList.remove('ready');
+            bar.classList.add('generating');
+            text.textContent = 'Generating response…';
+            btn.disabled = true;
+            btn.textContent = 'Please wait…';
+        });
+    </script>
+
+</body>
+
+</html>
