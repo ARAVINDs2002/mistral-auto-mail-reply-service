@@ -1,6 +1,8 @@
-# Email Reply Generator
+# mistral-auto-mail-reply-service
 
-A locally hosted web application built with Flask that generates professional email replies using the **Mistral** AI model via **Ollama**. This tool helps you quickly draft clear, polite, and professional email responses based on the received email and a specific instruction.
+A privacy-focused tool that leverages local LLMs (Mistral via Ollama) and a simple Flask interface to help developers and users quickly draft context-aware, professional email responses without relying on external APIs.
+
+Repository: [https://github.com/ARAVINDs2002/mistral-auto-mail-reply-service](https://github.com/ARAVINDs2002/mistral-auto-mail-reply-service)
 
 ## Features
 - **Local AI Processing**: Uses Ollama to run the Mistral model locally, ensuring privacy and avoiding API costs.
